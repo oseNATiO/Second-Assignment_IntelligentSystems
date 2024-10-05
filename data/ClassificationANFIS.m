@@ -1,13 +1,16 @@
 %% Load data and create train-test sets
 clear;clc
 
+% Load dataset and remove rows with missing values
 wbco_data = readtable('wbco.csv');
 wbco_data = rmmissing(wbco_data);
 
+% Gather predictors and output
 X = table2array(wbco_data(:,1:9));
 Y = table2array(wbco_data(:,10));
 rng(4797);
 
+% Train and test split
 train_test_partition = cvpartition(Y,'Holdout',0.2,'Stratify',true);
 train_idx = training(train_test_partition);
 test_idx = test(train_test_partition);
