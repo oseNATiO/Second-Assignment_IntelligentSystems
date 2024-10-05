@@ -40,7 +40,9 @@ initial_accuracy = initial_class_report.CorrectRate;
 initial_recall = initial_class_report.Sensitivity;
 initial_precision = initial_class_report.PositivePredictiveValue;
 initial_F1_score = 2/(1/initial_precision+1/initial_recall);
-initial_Kappa_score = 0.01^2*(sum(initial_confusion_matrix(:,1))*sum(initial_confusion_matrix(1,:))+sum(initial_confusion_matrix(:,2))*sum(initial_confusion_matrix(2,:)));
+initial_Po = sum(diag(initial_confusion_matrix))/sum(initial_confusion_matrix(:));
+initial_Pe = 1/sum(initial_confusion_matrix(:))^2*(sum(initial_confusion_matrix(:,1))*sum(initial_confusion_matrix(1,:))+sum(initial_confusion_matrix(:,2))*sum(initial_confusion_matrix(2,:)));
+initial_Kappa_score = (initial_Po - initial_Pe)/(1 - initial_Pe);
 
 % Display metrics
 fprintf('Initial Accuracy: %4.3f \n', initial_accuracy);
@@ -69,7 +71,9 @@ final_accuracy = final_class_report.CorrectRate;
 final_recall = final_class_report.Sensitivity;
 final_precision = final_class_report.PositivePredictiveValue;
 final_F1_score = 2/(1/final_precision+1/final_recall);
-final_Kappa_score = 0.01^2*(sum(final_confusion_matrix(:,1))*sum(final_confusion_matrix(1,:))+sum(final_confusion_matrix(:,2))*sum(final_confusion_matrix(2,:)));
+final_Po = sum(diag(final_confusion_matrix))/sum(final_confusion_matrix(:));
+final_Pe = 1/sum(final_confusion_matrix(:))^2*(sum(final_confusion_matrix(:,1))*sum(final_confusion_matrix(1,:))+sum(final_confusion_matrix(:,2))*sum(final_confusion_matrix(2,:)));
+final_Kappa_score = (final_Po - final_Pe)/(1 - final_Pe);
 
 % Display metrics
 fprintf('Final Accuracy: %4.3f \n', final_accuracy);
