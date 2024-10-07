@@ -21,7 +21,7 @@ Y_test = Y(test_idx,:);
 
 %% Train initial Takagi-Sugeno model
 opt = genfisOptions('FCMClustering','FISType','sugeno');
-opt.NumClusters = 5;
+opt.NumClusters = 7;
 ts_model = genfis(X_train,Y_train,opt);
 
 %% Check initial performance on test set
